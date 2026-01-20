@@ -1,64 +1,106 @@
-## JobTask Store (Next.js + Express)
+# NextStore
 
-A simple Next.js 16 (App Router) application with:
-- Public landing page (7 sections + navbar/footer)
-- Public items list + item details pages (fetched from an Express API)
-- Mock authentication (hardcoded credentials) stored in cookies
-- Protected route: **Add Item** (only accessible when logged in)
-- Toast notification on successful product creation
+A modern e-commerce platform built with Next.js 16 (App Router) featuring authentication, product browsing, and item management.
+
+## Features
+
+- **Landing Page**: 5 sections showcasing the platform
+- **Public Browsing**: Browse items and view detailed product information
+- **Authentication**: Mock login with hardcoded credentials stored in cookies
+- **Protected Routes**: Add items page (only accessible when logged in)
+- **Toast Notifications**: Feedback on successful actions
+- **Responsive Design**: Clean, modern UI with Tailwind CSS
+
+## Tech Stack
+
+- **Next.js 16** (App Router)
+- **React 19**
+- **TypeScript**
+- **Tailwind CSS**
+- **Sonner** (toast notifications)
+- **Cookie-based authentication**
 
 ## Setup & Installation
 
-From `jobtask-nextjs/`:
-
 ```bash
 npm install
-npm install --prefix server
 ```
 
-## Run (Dev)
-
-Run both Next.js and the Express API together:
+## Running Locally
 
 ```bash
-npm run dev:all
+npm run dev
 ```
 
-- Next.js: `http://localhost:3000`
-- Express API: `http://localhost:4000`
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Mock Login Credentials
 
-- Email: `admin@example.com`
-- Password: `password123`
+- **Email**: `admin@example.com`
+- **Password**: `password123`
 
-## Route Summary
+## Routes
 
-- `/`: Landing page (public)
-- `/login`: Login page (public)
-- `/items`: Items list (public)
-- `/items/[id]`: Item details (public)
-- `/add-item`: Add item (protected by middleware)
+| Route         | Access    | Description                   |
+| ------------- | --------- | ----------------------------- |
+| `/`           | Public    | Landing page                  |
+| `/login`      | Public    | Login page                    |
+| `/items`      | Public    | Browse all items              |
+| `/items/[id]` | Public    | View item details             |
+| `/add-item`   | Protected | Add new item (requires login) |
 
-## API Endpoints (Express)
+## API Endpoints
 
-- `GET /items`: List all items
-- `GET /items/:id`: Get one item
-- `POST /items`: Create item (**requires cookie `auth=1`**)
-- `GET /health`: Health check
+All API routes are built-in Next.js API routes:
 
-## Environment
+- `GET /api/items` - List all items
+- `GET /api/items/[id]` - Get single item
+- `POST /api/items` - Create item (requires auth cookie)
 
-The Next.js app reads the API base URL from:
+## Environment Variables
 
-- `NEXT_PUBLIC_API_URL` (defaults to `http://localhost:4000`)
+No environment variables are required. The app works out of the box with relative API paths.
 
-## Tech Used
+## Deployment
 
-- Next.js 16 (App Router)
-- React 19
-- Tailwind CSS
-- Express.js + JSON file storage
-- Cookie auth + middleware route protection
-- Sonner (toast notifications)
-# scicjobtask
+### Deploy to Vercel
+
+1. Push your code to GitHub
+2. Go to [vercel.com](https://vercel.com)
+3. Click "Add New" → "Project"
+4. Select your GitHub repository
+5. Click "Deploy"
+
+Your app will be live at `https://your-project.vercel.app`
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── api/
+│   │   └── items/          # API routes
+│   ├── items/              # Items pages
+│   ├── login/              # Login page
+│   ├── add-item/           # Add item page
+│   ├── layout.tsx          # Root layout
+│   ├── page.tsx            # Landing page
+│   └── globals.css         # Global styles
+├── components/
+│   ├── NavBar.tsx          # Navigation
+│   ├── Footer.tsx          # Footer
+│   └── Toaster.tsx         # Toast notifications
+└── lib/
+    └── api.ts              # API utilities
+```
+
+## Development
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
+
+## License
+
+MIT
