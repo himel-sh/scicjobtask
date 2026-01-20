@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // This repo includes a separate Express server (not part of Next lint rules):
+    "server/**",
   ]),
 ]);
 
