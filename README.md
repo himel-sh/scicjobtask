@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## JobTask Store (Next.js + Express)
 
-## Getting Started
+A simple Next.js 16 (App Router) application with:
+- Public landing page (7 sections + navbar/footer)
+- Public items list + item details pages (fetched from an Express API)
+- Mock authentication (hardcoded credentials) stored in cookies
+- Protected route: **Add Item** (only accessible when logged in)
+- Toast notification on successful product creation
 
-First, run the development server:
+## Setup & Installation
+
+From `jobtask-nextjs/`:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm install --prefix server
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Run (Dev)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Run both Next.js and the Express API together:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run dev:all
+```
 
-## Learn More
+- Next.js: `http://localhost:3000`
+- Express API: `http://localhost:4000`
 
-To learn more about Next.js, take a look at the following resources:
+## Mock Login Credentials
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Email: `admin@example.com`
+- Password: `password123`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Route Summary
 
-## Deploy on Vercel
+- `/`: Landing page (public)
+- `/login`: Login page (public)
+- `/items`: Items list (public)
+- `/items/[id]`: Item details (public)
+- `/add-item`: Add item (protected by middleware)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## API Endpoints (Express)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `GET /items`: List all items
+- `GET /items/:id`: Get one item
+- `POST /items`: Create item (**requires cookie `auth=1`**)
+- `GET /health`: Health check
+
+## Environment
+
+The Next.js app reads the API base URL from:
+
+- `NEXT_PUBLIC_API_URL` (defaults to `http://localhost:4000`)
+
+## Tech Used
+
+- Next.js 16 (App Router)
+- React 19
+- Tailwind CSS
+- Express.js + JSON file storage
+- Cookie auth + middleware route protection
+- Sonner (toast notifications)
+# scicjobtask
