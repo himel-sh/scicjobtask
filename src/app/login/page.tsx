@@ -1,9 +1,9 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { Suspense, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
   const params = useSearchParams();
   const nextPath = useMemo(() => params.get("next") || "/items", [params]);
@@ -44,7 +44,10 @@ export default function LoginPage() {
         Use the mock credentials: <b>admin@example.com</b> / <b>password123</b>
       </p>
 
-      <form onSubmit={onSubmit} className="mt-6 space-y-4 rounded-2xl border p-6">
+      <form
+        onSubmit={onSubmit}
+        className="mt-6 space-y-4 rounded-2xl border p-6"
+      >
         <div className="space-y-1.5">
           <label className="text-sm font-medium">Email</label>
           <input
@@ -85,3 +88,12 @@ export default function LoginPage() {
   );
 }
 
+export default function LoginPage() {
+  return (
+    <Suspense
+      fallback={<div className="mx-auto max-w-md py-8">Loading...</div>}
+    >
+      <LoginForm />
+    </Suspense>
+  );
+}
